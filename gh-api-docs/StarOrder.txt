@@ -1,0 +1,22 @@
+StarOrder
+StarredRepositoryConnection
+User.repositories
+User.starredRepositories
+User.watching
+StarredRepositoryConnection
+	StarredRepositoryEdge
+! Topic
+	Starrable
+! Repository.stargazerCount
+
+https://github.com/argon1025/Github-User-Stats-API/blob/fce78d2ff4268d7eb919b869ac58e46bf046740b/src/stats/stats.service.ts#L41:47
+```
+repositories(first: 100, ownerAffiliations: OWNER, orderBy: {direction: DESC, field: STARGAZERS}) {
+	totalCount
+	nodes {
+		stargazers {
+			totalCount
+		}
+	}
+}
+```
