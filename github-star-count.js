@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 async function fetchStarsOfUserRepos({
-	login = readfileSync("USERNAME"), //
-	token = readfileSync("TOKEN"),
+	login = readfileSync(require("path").join(__dirname, "USERNAME")), //
+	token = readfileSync(require("path").join(__dirname, "TOKEN")),
 	/**
 	 * set to `true` if only care about total count,
 	 * because will affect the json output:
@@ -150,7 +150,7 @@ async function github_star_count_CLI(argv = process.argv.slice(2)) {
 
 	const data = await fetchStarsOfUserRepos();
 
-	const outDirBase = "out"; // TODO ARGV
+	const outDirBase = path.join(__dirname, "out"); // TODO ARGV
 	const outDir = path.join(outDirBase, data.meta.login);
 	ensureDirSync(outDir, fs);
 	const outfile = path.join(outDir, data.meta.startTime + ".json");
