@@ -1,0 +1,15 @@
+{
+  "name": "github-star-count",
+  "version": "0.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:kiprasmel/github-star-count.git",
+  "author": "Kipras Melnikovas <kipras@kipras.org> (http://kipras.org/)",
+  "license": "UNLICENSED",
+  "bin": {
+    "github-star-count": "./github-star-count.js",
+	"ghsc": "./github-star-count.js"
+  },
+  "dependencies": {
+    "node-fetch": "2.6.9"
+  }
+}

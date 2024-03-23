@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+const fetch = require("node-fetch")
+
 async function fetchStarsOfUserRepos({
 	login = readfileSync(require("path").join(__dirname, "USERNAME")), //
 	token = readfileSync(require("path").join(__dirname, "TOKEN")),
