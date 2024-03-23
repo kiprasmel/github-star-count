@@ -14,8 +14,15 @@ async function fetchStarsOfUserRepos({
 	 */
 	BREAK_IF_ENCOUNTERED_ZERO_STARS_SINCE_SORTED = false,
 	REPOS_PER_REQ = 100,
+	DEBUG = !!process.env.DEBUG,
 } = {}) {
 	const startTime = new Date().toISOString();
+
+	const log = (...xs) => {
+		if (DEBUG) {
+			console.log(...xs);
+		}
+	};
 
 	const pages = [];
 
@@ -50,7 +57,12 @@ async function fetchStarsOfUserRepos({
 			}),
 		});
 
+		log({ res });
+
 		const page = await res.json();
+
+		log({ page });
+		log(JSON.stringify(page, null, 2));
 
 		if (page.errors) {
 			const { errors } = page;
@@ -64,7 +76,7 @@ async function fetchStarsOfUserRepos({
 		totalRepoCount = page.data.user.repositories.totalCount;
 		totalStarCount += page.data.user.repositories.edges.map((e) => e.node.stargazers.totalCount).reduce(sum, 0);
 
-		const lastEdge = page.data.user.repositories.edges.at(-1);
+		const lastEdge = last(page.data.user.repositories.edges)
 		lastFetchedRepoCursor = lastEdge.cursor;
 
 		++pageIdx;
@@ -167,6 +179,10 @@ function ensureDirSync(dir, fs = require("fs")) {
 	if (!fs.existsSync(dir)) {
 		fs.mkdirSync(dir, { recursive: true });
 	}
+}
+
+function last(xs) {
+	return xs[xs.length - 1]
 }
 
 if (!module.parent) {
